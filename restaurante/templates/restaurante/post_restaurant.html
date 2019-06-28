@@ -1,25 +1,35 @@
-<html>
-    <head>
-        <title>Blog restaurantes</title>
-    </head>
-    <body>
-    	<div>
-            <h1><a href="/">Cuentanos tu experiencia gastronomica </a></h1>
-        </div>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
 
-        {% for post in posts %} 
-         <div>
-         	<p> publicado: {{ post_restaurant.fecha_publicado }} </p>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        
+      <title>Blog restaurantes</title>
+  
+  </head>
+
+
+  <body>
+    <div class='titulo'>
+        <h1><a href="/">Cuentanos tu experiencia gastronomica </a></h1>
+
+      {% for post in posts %} 
+        <div class='contenido'>
          	<h2><a href = "" >{{ post.titulo }} </a></h2>
-         <!--   <h2><a href="">Primer post</a></h2> -->
-          <!--  <p>Encantado, delicioso, hotel plaza bahia de sogamoso</p>-->
+          <p>{{ post.texto|linebreaksbr }} </p>
+          <p> publicado: {{ post.fecha_publicado }} </p>
         </div>
 
-        <div>
-        	<p>{{ post.texto|linebreaksbr }} </p>
-        </div>
-        {% endfor %}
-    </body>
+      {% endfor %}
+  </body>
 
 	<footer>
   		<p>Posted by: Nicolef Avella</p>
