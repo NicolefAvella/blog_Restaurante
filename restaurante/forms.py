@@ -9,7 +9,7 @@ class RestauranteForm(forms.ModelForm):
         fields = ('titulo', 'texto','comentarios','categoria')
 
 class LoginForm(forms.Form):
-	username= forms.CharField(label="")
-	password = forms.CharField(label="", widget=forms.PasswordInput)
+	username= forms.CharField(label="usuario")
+	password = forms.CharField(label="contraseña", widget=forms.PasswordInput)
 	
         

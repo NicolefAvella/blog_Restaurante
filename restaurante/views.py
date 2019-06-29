@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from .models import PostRestaurant
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import RestauranteForm
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def post_restaurant(request):
@@ -16,10 +17,10 @@ def post_restaurant(request):
 
 
 def post_detail(request, pk):
-	print(pk)
 	post = get_object_or_404(PostRestaurant, pk=pk)
 	return render(request, 'restaurante/post_detail.html', {'post': post})
 
+@login_required()
 def post_new(request):
     if request.method == "POST":
         form = RestauranteForm(request.POST)
@@ -28,25 +29,32 @@ def post_new(request):
             post.autor = request.user
             post.fecha_publicado = timezone.now()
             post.save()
-            return redirect('restaurante.views.post_detail', pk=post.pk)
+            return redirect('restaurante:post_detail', pk=post.pk)
     else:
         form = RestauranteForm()
     return render(request, 'restaurante/post_edit.html', {'form': form})
 
+# restringir con login
+@login_required()
 def post_edit(request, pk):
+    # el user ya esta logueado 
+    user = request.user
     post = get_object_or_404(PostRestaurant, pk=pk)
-    if request.method == "POST":
-        form = RestauranteForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.autor = request.user
-            post.fecha_publicado = timezone.now()
-            post.save()
-            return redirect('restaurante.views.post_detail', pk=post.pk)
+    if user == post.autor:
+        if request.method == "POST":
+            form = RestauranteForm(request.POST, instance=post)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.autor = request.user
+                post.fecha_publicado = timezone.now()
+                post.save()
+                return redirect('restaurante:post_detail', pk=post.pk)
+        # GET, PUT, DELETE, 
+        else:
+            form = RestauranteForm(instance=post)
+        return render(request, 'restaurante/post_edit.html', {'form': form})    
     else:
-        form = RestauranteForm(instance=post)
-    return render(request, 'restaurante/post_edit.html', {'form': form})    
-
+        return redirect('restaurante:post_restaurant')
 
 def like_post(request):
     post = get_object_or_404(PostRestaurant, id=request.POST.get('post_id'))
@@ -60,18 +68,17 @@ def login_page(request) :
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(username=username, password=password)
+
             if user:
-                if user.is_activate:
-                    login(request, user)
-                    return HttpResponseRedirect(reverse('post_restaurant'))
-                else:
-                    return HttpResponse('Usuario no registrado')
+                login(request, user)
+                return redirect('restaurante:post_restaurant')
             else:
-                return HttpResponse('Nombre de usuario o contraseña incorrecta')
-        else:
-            form = LoginForm()
-        
-        context ={
-            'form': form
-        }
-        return render(request, 'restaurante/registro.html', context)
+                pass
+
+    else:
+        form = LoginForm()
+    
+    context ={
+        'form': form
+    }
+    return render(request, 'restaurante/registro.html', context)

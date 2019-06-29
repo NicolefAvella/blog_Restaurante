@@ -7,15 +7,15 @@
                 {{ post.fecha_publicado }}
             </div>
         {% endif %}
-        {% if user.is_authenticated %}
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% if request.user == post.autor %}
+        <a class="btn btn-default" href="{% url 'restaurante:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil">Editar</span></a>
         {% endif %}
         <h1>{{ post.titulo }}</h1>
         <p>{{ post.texto|linebreaksbr }}</p>
         <h3>{{ post.autor }}</h3>
         <h4>{{ post.categoria }}</h4>
 
-         <form action="{% url 'like_post' %" method="post">
+         <form action="{% url 'restaurante:like_post' %" method="post">
             <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary">Like</button>
          </form>   
 
