@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone  
 
 
-class Post_Restaurant(models.Model):
+class PostRestaurant(models.Model):
     autor = models.CharField(max_length=100)
     titulo = models.CharField(max_length=200)
     texto = models.TextField()

@@ -1,0 +1,21 @@
+.page-header {
+    background-color: #3CB371;
+    margin-top: 0;
+    padding: 10px 10px 10px 20px;
+}
+
+
+
+body {
+    padding-left: 150px;
+    color: #000000;
+}
+
+h3{
+    font-family: 'Lobster', cursive;
+}
+
+.date2 {
+    float: right;
+    color: #828282;
+}

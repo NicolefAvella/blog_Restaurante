@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Post_Restaurant
+from .models import PostRestaurant
 
 
 #Modelo visible en el administrador
@@ -12,4 +12,5 @@ class RestauranteAdmin(admin.ModelAdmin):
 	search_fields = ("autor",  )
 
 
-admin.site.register(Post_Restaurant,RestauranteAdmin)  
+admin.site.register(PostRestaurant, RestauranteAdmin)  
+

@@ -1,40 +1,19 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
+{% extends 'restaurante/base.html' %}
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-        
-      <title>Blog restaurantes</title>
-  
-  </head>
-
-
-  <body>
-    <div class='titulo'>
-        <h1><a href="/">Cuentanos tu experiencia gastronomica </a></h1>
-
-      {% for post in posts %} 
-        <div class='contenido'>
-         	<h2><a href = "" >{{ post.titulo }} </a></h2>
-          <p>{{ post.texto|linebreaksbr }} </p>
-          <p> publicado: {{ post.fecha_publicado }} </p>
-        </div>
-
-      {% endfor %}
-  </body>
-
-	<footer>
-  		<p>Posted by: Nicolef Avella</p>
-	</footer>
-
-</html>
+{% block content %}
+{% for post in posts %}
+  <div class="post">
+    <h1><a href="{% url 'post_detail' post.pk %}">{{ post.titulo }}</a></h1>
+    <!--<h1><a href="">{{ post.titulo }}</a></h1>-->
+    <div class="date">
+      {{ post.autor }}
+    </div>
+    <div class="date">
+      {{ post.fecha_publicado }}
+    </div>
+    <!--<p>{{ post.texto|linebreaksbr }}</p>-->
+  </div>
+{% endfor %}
+{% endblock %}
 
 
