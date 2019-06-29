@@ -19,3 +19,11 @@ h3{
     float: right;
     color: #828282;
 }
+
+.date {
+	float: right;
+	font-style: italic;
+	color: #E5C1A6;
+	font-size:14px;
+}
+

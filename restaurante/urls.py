@@ -9,7 +9,10 @@ from django.conf import settings
 urlpatterns = [
 
     path('', views.post_restaurant, name='post_restaurant'),
+    path(r'^login/$', views.login_page, name='usuario'),
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/new/', views.post_new, name='post_new'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
+    path(r'^like/$', views.like_post, name="like_post"),
+
 ]

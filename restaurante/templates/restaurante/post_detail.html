@@ -13,5 +13,11 @@
         <h1>{{ post.titulo }}</h1>
         <p>{{ post.texto|linebreaksbr }}</p>
         <h3>{{ post.autor }}</h3>
+        <h4>{{ post.categoria }}</h4>
+
+         <form action="{% url 'like_post' %" method="post">
+            <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary">Like</button>
+         </form>   
+
     </div>
 {% endblock %}

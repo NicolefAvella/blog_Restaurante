@@ -8,6 +8,8 @@
 
     </head>
     <body>
+       {% include 'restaurante/navbar.html' %}
+       
         <div class="page-header">
             <h1><a href="/">Cuentanos tu experiencia gastronomica</a></h1>
             {% if user.is_authenticated %}
@@ -16,11 +18,14 @@
         </div>
         <div class="content container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6"> 
                 {% block content %}
                 {% endblock %}
-                </div>
-            </div>
+                <br>
+                </div>  
+            </div>  
         </div>
     </body>
+    <footer>  Medellin, Colombia, ¡Sintonia con la 4 revolucion! </footer>
 </html>
+
