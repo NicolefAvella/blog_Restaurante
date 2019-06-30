@@ -2,18 +2,31 @@ from django.shortcuts import render
 from .models import PostRestaurant
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import RestauranteForm
+from .forms import RestauranteForm,  LoginForm
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.contrib.auth.models import User
 # Create your views here.
 
 def post_restaurant(request):
-	posts = PostRestaurant.objects.filter(fecha_publicado__lte=timezone.now()).order_by('fecha_publicado').reverse() 
-	return render (request, 'restaurante/post_restaurant.html',{'posts': posts})
+    # lt = less than  e= qual <= gt, lt, gte
+    posts = PostRestaurant.objects.filter(
+        Q(fecha_desactivado__isnull=True) | Q(fecha_desactivado__gte=timezone.now()),
+        fecha_publicado__lte=timezone.now(),
+        ).order_by('fecha_publicado').distinct().reverse() 
+    query = request.GET.get('q')
+    if query :
+        posts = PostRestaurant.objects.filter(
+        Q(categoria=query)|
+        Q(tags__icontains=query)|    
+        Q(autor__username__icontains=query), # post_contenido
+        ).distinct()
+    return render (request, 'restaurante/post_restaurant.html',{'posts': posts})
 
 
 def post_detail(request, pk):
@@ -27,7 +40,6 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.autor = request.user
-            post.fecha_publicado = timezone.now()
             post.save()
             return redirect('restaurante:post_detail', pk=post.pk)
     else:
@@ -46,7 +58,6 @@ def post_edit(request, pk):
             if form.is_valid():
                 post = form.save(commit=False)
                 post.autor = request.user
-                post.fecha_publicado = timezone.now()
                 post.save()
                 return redirect('restaurante:post_detail', pk=post.pk)
         # GET, PUT, DELETE, 
@@ -57,9 +68,10 @@ def post_edit(request, pk):
         return redirect('restaurante:post_restaurant')
 
 def like_post(request):
-    post = get_object_or_404(PostRestaurant, id=request.POST.get('post_id'))
+    post = get_object_or_404(PostRestaurant, id=request.POST.get('post.id'))
     post.likes.add(request.user)
-    return HttpResponseRedirect(post.get_absolute_url())
+    return redirect('restaurante:post_restaurant')
+    #return HttpResponseRedirect(post.get_absolute_url())
 
 def login_page(request) :
     if request.method == "POST":

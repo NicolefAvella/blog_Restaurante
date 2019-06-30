@@ -1,6 +1,6 @@
 #Categorias para base de datos
-NORTE_AMERICA = 'norte_america'
-SUR_AMERICA = 'sur_america'
+NORTE_AMERICA = 'norte america'
+SUR_AMERICA = 'sur america'
 EUROPA = 'europa'
 ASIA = 'asia'
 AFRICA = 'africa'

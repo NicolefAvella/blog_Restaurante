@@ -12,15 +12,16 @@
       <div class="cat">
         {{ post.categoria }}
       </div>
+      <div class="tags">
+        {{ post.tags }}
+      </div>
       <div class="autor">
        Autor: {{ post.autor }}
       </div>
 
       <br>
       <!--<p>{{ post.texto|linebreaksbr }}</p>-->
-      <div class="come">
-        {{ post.comentarios }}
-      </div>
+
     </div>
   </div>  
 {% endfor %}

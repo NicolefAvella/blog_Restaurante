@@ -1,12 +1,17 @@
 from django import forms
 from .models import PostRestaurant
 from django.contrib.auth.models import User
+import datetime
 
 class RestauranteForm(forms.ModelForm):
 
     class Meta:
         model = PostRestaurant
-        fields = ('titulo', 'texto','comentarios','categoria')
+        fields = ('titulo', 'texto','categoria','tags', 'fecha_publicado','fecha_desactivado')
+        widgets = {
+            'fecha_publicado': forms.DateTimeInput(attrs={'type': 'date'}),
+            'fecha_desactivado': forms.DateTimeInput(attrs={'type': 'date'}),
+        }
 
 class LoginForm(forms.Form):
 	username= forms.CharField(label="usuario")
