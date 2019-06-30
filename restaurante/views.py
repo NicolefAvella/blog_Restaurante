@@ -30,8 +30,26 @@ def post_restaurant(request):
 
 
 def post_detail(request, pk):
-	post = get_object_or_404(PostRestaurant, pk=pk)
-	return render(request, 'restaurante/post_detail.html', {'post': post})
+    post = get_object_or_404(PostRestaurant, pk=pk)
+    is_liked=False
+    if request.user.is_authenticated :   
+        like_user=post.likes.filter(
+        username=request.user.username
+        )
+        if like_user.count()==1:
+            is_liked=True
+
+    if request.method=='POST':
+        if is_liked==True:
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user) 
+        
+    context = {
+    'post': post,
+    'is_liked' : is_liked,
+    }    
+    return render(request, 'restaurante/post_detail.html', context)
 
 @login_required()
 def post_new(request):
@@ -52,7 +70,7 @@ def post_edit(request, pk):
     # el user ya esta logueado 
     user = request.user
     post = get_object_or_404(PostRestaurant, pk=pk)
-    if user == post.autor:
+    if user == post.autor or user.is_superuser:
         if request.method == "POST":
             form = RestauranteForm(request.POST, instance=post)
             if form.is_valid():
@@ -63,15 +81,13 @@ def post_edit(request, pk):
         # GET, PUT, DELETE, 
         else:
             form = RestauranteForm(instance=post)
-        return render(request, 'restaurante/post_edit.html', {'form': form})    
+            context = {
+                'form': form,
+            }    
+        return render(request, 'restaurante/post_edit.html', context)    
     else:
         return redirect('restaurante:post_restaurant')
 
-def like_post(request):
-    post = get_object_or_404(PostRestaurant, id=request.POST.get('post.id'))
-    post.likes.add(request.user)
-    return redirect('restaurante:post_restaurant')
-    #return HttpResponseRedirect(post.get_absolute_url())
 
 def login_page(request) :
     if request.method == "POST":

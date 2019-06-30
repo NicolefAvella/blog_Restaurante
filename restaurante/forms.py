@@ -1,5 +1,5 @@
 from django import forms
-from .models import PostRestaurant
+from .models import PostRestaurant, Comentario
 from django.contrib.auth.models import User
 import datetime
 
@@ -7,7 +7,7 @@ class RestauranteForm(forms.ModelForm):
 
     class Meta:
         model = PostRestaurant
-        fields = ('titulo', 'texto','categoria','tags', 'fecha_publicado','fecha_desactivado')
+        fields = ('titulo', 'texto','categoria','tags', 'fecha_publicado','fecha_desactivado',)
         widgets = {
             'fecha_publicado': forms.DateTimeInput(attrs={'type': 'date'}),
             'fecha_desactivado': forms.DateTimeInput(attrs={'type': 'date'}),
@@ -31,3 +31,9 @@ class RegistrationForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Password Mismatch")
         return confirm_password	
+
+class ComentarioForm(forms.ModelForm):
+    
+    class Meta:
+        model = Comentario    
+        fields = ('comentarios',)    
