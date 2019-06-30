@@ -4,6 +4,13 @@
     <form method="POST">
     	{% csrf_token %}
         {{ form.as_p }}
+
         <button type="submit" class="save btn btn-default">Ingresar</button>
     </form>
 {% endblock %}
+
+
+<!-- <small>
+    <a href="{% url 'restaurante:password_reset' %}"> Olvidaste la contraseña?</a>
+</small> -->
+        	

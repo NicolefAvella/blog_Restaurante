@@ -16,15 +16,24 @@
       </ul>
 
       <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola!  {{ request.user }}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'restaurante:usuario' %}">Login</a>
-              <a class="dropdown-item" href="#">Logout</a>
-              <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Registrarse</a>
-              </div>
+              <a class="dropdown-item" href="{% url 'restaurante:login' %}">Login</a>
+              <a class="dropdown-item" href="{% url 'restaurante:logout' %}">Logout</a>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'restaurante:login' %}" class="nav-link">Login</a>
+          <li>    
+          <li class="nav-item">
+            <a href="{% url 'restaurante:registro' %}" class="nav-link">Registrarse</a>
+          <li>   
+         <!-- <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Registrarse</a>
+          </div> -->
         </li>
+        {% endif %}
       </ul>
     </div>
 </nav>

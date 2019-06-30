@@ -131,3 +131,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 #url para login
 LOGIN_URL='/blog/login'
 LOGIN_REDIRECT_URL='/blog/login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

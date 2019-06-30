@@ -6,8 +6,8 @@ from .forms import RestauranteForm
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from .forms import LoginForm
-from django.contrib.auth import authenticate, login
+from .forms import LoginForm, RegistrationForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -82,3 +82,24 @@ def login_page(request) :
         'form': form
     }
     return render(request, 'restaurante/registro.html', context)
+
+def logout_page(request):
+    logout(request)
+    return redirect('restaurante:post_restaurant')    
+
+def register(request):
+    if request.method == 'POST' :
+        form = RegistrationForm(request.POST or None)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            new_user.set_password(form.cleaned_data['password'])    
+            new_user.save()
+            return redirect('restaurante:post_restaurant')
+
+    else:
+        form = RegistrationForm()
+    context = {
+        'form' : form,
+    }
+    return render(request, 'registro/register.html', context)
+                

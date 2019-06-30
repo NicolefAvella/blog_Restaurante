@@ -8,9 +8,9 @@ from .models import PostRestaurant
 
 
 class RestauranteAdmin(admin.ModelAdmin):
-	list_display = ("autor", "fecha_publicado")
-	search_fields = ("autor",  )
-
+	list_display = ("autor", "fecha_publicado", "categoria", "tags")
+	list_filter = ("categoria","tags",)
+	search_fields = ("tags",)
 
 admin.site.register(PostRestaurant, RestauranteAdmin)  
 
