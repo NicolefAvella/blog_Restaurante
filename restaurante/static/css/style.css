@@ -5,25 +5,18 @@ html{
 
 
 .titlefirst{
-
     font-size: 28px;
     color: #F2F0E8;
-    font-family: sans-serif;
-  
+    font-family: sans-serif;  
 }
 
 .page-header {
-
     background-color: #F28963;
     margin : 10px 10px 10px 0px;
     padding: 10px 10px 10px 10px;
     border: 5px solid #EEA990;
     text-align: center;
-
-
 }
-
-
 
 
 body {
@@ -67,19 +60,15 @@ h4{
 .texto{
     font-family: sans-serif;
     font-size: 17px;
- 
-
 }
-
-
 
 .introdu{
     float: right;
     position: absolute;
     top: 200px;
     right:80px;
-    width: 370px;
-    padding: 40px;
+    width: 300px;
+    padding: 20px;
     color: black;
     text-align: justify;
     margin : 5px 5px 5px 5px;
@@ -92,6 +81,7 @@ h4{
     float: right;
     color: #828282;
 }
+
 
 .date {
 	float: right;

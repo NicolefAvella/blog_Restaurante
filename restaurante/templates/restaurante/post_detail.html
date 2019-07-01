@@ -9,9 +9,13 @@
         {% endif %}
         {% if request.user == post.autor or user.is_superuser %}
         <a class="btn btn-outline-dark" href="{% url 'restaurante:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil">Editar</span></a>
+
+        <a class="btn btn-outline-danger" href="{% url 'restaurante:post_delete' pk=post.pk %}"><span class="glyphicon glyphicon-pencil">Borrar</span></a>
         {% endif %}
         
         <a class="btn btn btn-outline-dark" href="{% url 'restaurante:post_restaurant' %}">Regresar <span class="sr-only">(current)</span></a>
+
+
         
         <br><br>
         <h2>{{ post.titulo }}</h2>

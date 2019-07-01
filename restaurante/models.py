@@ -36,7 +36,7 @@ class PostRestaurant(models.Model):
         return  self.comentario_set.all() 
 
 class Comentario(models.Model):
-    post_restaurant = models.ForeignKey(PostRestaurant, on_delete=models.PROTECT)
+    post_restaurant = models.ForeignKey(PostRestaurant, on_delete=models.CASCADE)
     comentarios = models.TextField(max_length=200, default='deja tu comentario aqui!', null=True)
     autor_comentario = models.ForeignKey(User, on_delete=models.PROTECT)
     fecha_comentario = models.DateField(auto_now_add=True)

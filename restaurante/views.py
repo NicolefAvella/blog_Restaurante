@@ -140,4 +140,13 @@ def register(request):
         'form' : form,
     }
     return render(request, 'registro/register.html', context)
-                
+
+
+
+@login_required()
+def post_delete(request,pk):
+    user = request.user               
+    post = get_object_or_404(PostRestaurant, pk=pk)
+    if user == post.autor or user.is_superuser:
+        post.delete()
+        return redirect('restaurante:post_restaurant')
