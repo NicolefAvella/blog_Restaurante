@@ -1,0 +1,17 @@
+{% if request.user.is_authenticated %}
+    <form method="POST">
+    {% csrf_token %}
+    {{ comentario_form.as_p }}
+    <input type="submit" value="Enviar" class="btn btn-outline-success">
+    </form>
+{% endif %}
+    <div id="comentario">
+        {{ comentarios.count }} Comentarios {{ comentario | pluralize}}
+        {% for comentario in post.get_comentarios %}
+        <blockquote class="blockquote">
+            <p class="mb-0">{{ comentario.comentarios }}</p>
+            <footer class="blockquote-footer">Por: <cite title="Source Title"> {{comentario.autor_comentario|capfirst}}</cite> <br>  
+            {{comentario.fecha_comentario}}</footer>
+        </blockquote>    
+        {% endfor %}    
+    </div>

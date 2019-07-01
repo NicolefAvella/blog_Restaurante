@@ -1,5 +1,5 @@
 
-{{ post.total_likes }} Likes {{ post.total_likes | pluralize}}
+{{ post.total_likes }} Like{{ post.total_likes|pluralize}}
 {% if request.user.is_authenticated %}
     <form method="POST" href="{% url 'restaurante:post_detail' pk=post.pk %}">
         {% csrf_token %}

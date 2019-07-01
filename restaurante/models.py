@@ -37,9 +37,9 @@ class PostRestaurant(models.Model):
 
 class Comentario(models.Model):
     post_restaurant = models.ForeignKey(PostRestaurant, on_delete=models.PROTECT)
-    comentarios = models.TextField(max_length=200, default='deja tu comentario aqui!')
+    comentarios = models.TextField(max_length=200, default='deja tu comentario aqui!', null=True)
     autor_comentario = models.ForeignKey(User, on_delete=models.PROTECT)
-    fecha_comentario = models.DateTimeField(auto_now=True)
+    fecha_comentario = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return '{}-{}'.format(self.post_restaurant.titulo, str(self.post_restaurant.autor))

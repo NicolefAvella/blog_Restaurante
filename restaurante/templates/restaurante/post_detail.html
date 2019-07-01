@@ -19,11 +19,14 @@
             {% include 'restaurante/like_section.html' %}
         </div>    
 
-        <div id="comentario">
-            {% for comentario in post.get_comentarios %}
-                <p> {{ comentario.comentarios }}</p>
-            {% endfor %}    
-        </div>
+        <br><br>
+        <hr>
+
+        <div id="comentario-section">
+        {% include 'restaurante/comentario_section.html' %}
+        </div>  
+
+        
 
     </div>
 {% endblock %}

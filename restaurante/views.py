@@ -1,12 +1,8 @@
-from django.shortcuts import render
-from .models import PostRestaurant
+from .models import PostRestaurant, Comentario
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404, redirect
-from .forms import RestauranteForm,  LoginForm
-
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
+from .forms import RestauranteForm,  LoginForm, RegistrationForm, ComentarioForm
 from django.template import RequestContext
-from django.shortcuts import render_to_response
-from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -31,6 +27,7 @@ def post_restaurant(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(PostRestaurant, pk=pk)
+    comentarios = Comentario.objects.filter(post_restaurant=post).order_by('fecha_comentario').reverse()
     is_liked=False
     if request.user.is_authenticated :   
         like_user=post.likes.filter(
@@ -44,10 +41,24 @@ def post_detail(request, pk):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user) 
-        
+     
+    if request.method=='POST':    
+        comentario_form = ComentarioForm(request.POST or None)
+        if comentario_form.is_valid():
+            texto = request.POST.get('comentarios')
+            comentarios = Comentario.objects.create(post_restaurant=post, autor_comentario = request.user,
+            comentarios= texto, fecha_comentario=timezone.now(),
+            )
+            comentarios.save()
+            return redirect('restaurante:post_detail', pk=post.pk)
+    else:
+        comentario_form=ComentarioForm()    
+
     context = {
     'post': post,
     'is_liked' : is_liked,
+    'comentarios' : comentarios,
+    'comentario_form': comentario_form,
     }    
     return render(request, 'restaurante/post_detail.html', context)
 
@@ -123,7 +134,6 @@ def register(request):
             new_user.set_password(form.cleaned_data['password'])    
             new_user.save()
             return redirect('restaurante:post_restaurant')
-
     else:
         form = RegistrationForm()
     context = {
