@@ -14,12 +14,12 @@ class RestauranteForm(forms.ModelForm):
         }
 
 class LoginForm(forms.Form):
-	username= forms.CharField(label="usuario")
-	password = forms.CharField(label="contraseña", widget=forms.PasswordInput)
+	username= forms.CharField(label="Usuario")
+	password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
 	
 class RegistrationForm(forms.ModelForm):     
-    password = forms.CharField(label="contraseña", widget=forms.PasswordInput(attrs={'placeholder':'Ingrese contraseña aqui'}))
-    confirm_password = forms.CharField(label=" confirmar contraseña", widget=forms.PasswordInput(attrs={'placeholder':'Confirmar contraseña'}))
+    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput(attrs={'placeholder':'Ingrese contraseña aqui'}))
+    confirm_password = forms.CharField(label=" Confirmar contraseña", widget=forms.PasswordInput(attrs={'placeholder':'Confirmar contraseña'}))
 	
     class Meta:
         model = User

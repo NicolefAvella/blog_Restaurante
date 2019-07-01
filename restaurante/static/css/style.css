@@ -3,22 +3,90 @@ html{
     min-height: 100%;
 }
 
-.page-header {
-    background-color: #3CB371;
-    margin-top: 0;
-    padding: 10px 10px 10px 20px;
+
+.titlefirst{
+
+    font-size: 28px;
+    color: #F2F0E8;
+    font-family: sans-serif;
+  
 }
+
+.page-header {
+
+    background-color: #F28963;
+    margin : 10px 10px 10px 0px;
+    padding: 10px 10px 10px 10px;
+    border: 5px solid #EEA990;
+    text-align: center;
+
+
+}
+
 
 
 
 body {
     padding-left: 150px;
     color: #000000;
+    margin-bottom: 150px;
+    background-color: #F2F0E8;
+    font-family: sans-serif
 }
 
-h3{
-    font-family: 'Lobster', cursive;
+div div .titul{
+    font-family: sans-serif;
+    font-size: 30px;
+    color: #541C30;
 }
+
+.img-thumbnail{
+
+     border: 1px solid #541C30;
+     margin : 10px 10px 10px 0px;
+}
+
+
+h2{
+    font-family: sans-serif;
+    font-size: 30px;
+    color: #541C30;
+}
+
+div div .autor, h3{
+    font-family: 'Lobster', cursive;
+    color: #541C30;
+    font-size: 20px;
+}
+
+h4{
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.texto{
+    font-family: sans-serif;
+    font-size: 17px;
+ 
+
+}
+
+
+
+.introdu{
+    float: right;
+    position: absolute;
+    top: 200px;
+    right:80px;
+    width: 370px;
+    padding: 40px;
+    color: black;
+    text-align: justify;
+    margin : 5px 5px 5px 5px;
+    border: 2px solid #541C30;
+}
+
+
 
 .date2 {
     float: right;
@@ -37,8 +105,14 @@ h3{
     bottom: 0;
     left: 0;
     right: 0;
-    height: 130px;
-    padding: 15px;
-    background-color: red;
-
+    height: 80px;
+    padding: 10px;
+    border: 5px solid #EEA990;
+    background-color: #F28963;
+    font-family: "Latin Modern Roman 10";
+    font-style: oblique;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    color: #F2F0E8 ;
 }

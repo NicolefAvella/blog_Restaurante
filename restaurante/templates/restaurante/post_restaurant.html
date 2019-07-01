@@ -7,10 +7,12 @@
       <div class="date">
         {{ post.fecha_publicado }}
       </div>
-      <h1><a href="{% url 'restaurante:post_detail' post.pk %}">{{ post.titulo }}</a></h1>
-      <!--<h1><a href="">{{ post.titulo }}</a></h1>-->
+      <h2><a class="titul" href="{% url 'restaurante:post_detail' post.pk %}">{{ post.titulo }}</a></h2>
+      <div>
+        <p class="texto">{{ post.texto|linebreaksbr }}</p>
+      </div>  
       <div class="cat">
-        {{ post.categoria }}
+        Categoria: {{ post.categoria }}
       </div>
       <div class="tags">
         {{ post.tags }}
@@ -20,7 +22,6 @@
       </div>
 
       <br>
-      <!--<p>{{ post.texto|linebreaksbr }}</p>-->
 
     </div>
   </div>  

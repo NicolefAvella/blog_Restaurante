@@ -8,12 +8,17 @@
             </div>
         {% endif %}
         {% if request.user == post.autor or user.is_superuser %}
-        <a class="btn btn-default" href="{% url 'restaurante:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil">Editar</span></a>
+        <a class="btn btn-outline-dark" href="{% url 'restaurante:post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil">Editar</span></a>
         {% endif %}
-        <h1>{{ post.titulo }}</h1>
-        <p>{{ post.texto|linebreaksbr }}</p>
+        
+        <a class="btn btn btn-outline-dark" href="{% url 'restaurante:post_restaurant' %}">Regresar <span class="sr-only">(current)</span></a>
+        
+        <br><br>
+        <h2>{{ post.titulo }}</h2>
+        <p class="texto">{{ post.texto|linebreaksbr }}</p>
+        <h4>Categoria : {{ post.categoria }}</h4>
         <h3>{{ post.autor }}</h3>
-        <h4>{{ post.categoria }}</h4>
+        
 
         <div id="like-section">
             {% include 'restaurante/like_section.html' %}
