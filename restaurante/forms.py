@@ -33,7 +33,8 @@ class RegistrationForm(forms.ModelForm):
         return confirm_password	
 
 class ComentarioForm(forms.ModelForm):
-    
+    comentarios = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Comenta aqui!'}), label="Comentario", required=False)
+
     class Meta:
         model = Comentario    
         fields = ('comentarios',)    

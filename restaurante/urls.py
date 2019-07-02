@@ -1,4 +1,4 @@
-#from django.conf.urls import url
+from django.conf.urls import url, include
 from django.urls import path
 from .import views
 from django.conf.urls.static import static
@@ -19,13 +19,12 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),
     path('register', views.register, name='registro'),
 
+    
     #Recuperar contraseña
-    #path('accounts/', include('django.contrib.auth.urls')),
-
-
+    #path('', include('django.contrib.auth.urls')),
     #path('password_reset/', auth_views.PasswordChangeView.as_view()),
-    #path('password_reset', auth_views.password_reset, name= "password_reset"),
-    #path('password_reset/done', auth_views.password_reset_done, name= "password_reset_done"),
+    #path(r'^password_reset/$', auth_views.password_reset, name= "password_reset"),
+    #path('password_reset/done/', auth_views.password_reset_done, name= "password_reset_done"),
     #path('password_reset/confirm/(?P<uidb64>[\w-]+)/(?P<token>[\w-]+)/', auth_views.password_reset_confirm, name= "password_reset_confirm"),
     #path('password_reset/complete', auth_views.password_reset_complete, name= "password_reset_complete"),
 ]

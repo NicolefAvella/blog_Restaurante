@@ -29,30 +29,36 @@ def post_detail(request, pk):
     post = get_object_or_404(PostRestaurant, pk=pk)
     comentarios = Comentario.objects.filter(post_restaurant=post).order_by('fecha_comentario').reverse()
     is_liked=False
+    comentario_form = ComentarioForm()
     if request.user.is_authenticated :   
         like_user=post.likes.filter(
         username=request.user.username
         )
         if like_user.count()==1:
             is_liked=True
-
-    if request.method=='POST':
-        if is_liked==True:
-            post.likes.remove(request.user)
-        else:
-            post.likes.add(request.user) 
      
-    if request.method=='POST':    
-        comentario_form = ComentarioForm(request.POST or None)
-        if comentario_form.is_valid():
-            texto = request.POST.get('comentarios')
-            comentarios = Comentario.objects.create(post_restaurant=post, autor_comentario = request.user,
-            comentarios= texto, fecha_comentario=timezone.now(),
-            )
-            comentarios.save()
-            return redirect('restaurante:post_detail', pk=post.pk)
-    else:
-        comentario_form=ComentarioForm()    
+    if request.method == 'POST': 
+        # {}, [], nm.get(.)
+        form_is_like = request.POST.get("post_id")
+        if form_is_like is not None:
+            # cuando es like
+            if is_liked == True:
+                post.likes.remove(request.user)
+            else:
+                post.likes.add(request.user)
+        else:
+            comentario_form = ComentarioForm(request.POST)
+            if comentario_form.is_valid():
+                texto = request.POST.get('comentarios')
+                if texto:
+                    comentarios = Comentario.objects.create(
+                        post_restaurant=post, 
+                        autor_comentario=request.user,
+                        comentarios=texto, 
+                        fecha_comentario=timezone.now(),
+                    )
+                    comentarios.save()
+                    return redirect('restaurante:post_detail', pk=post.pk)                
 
     context = {
     'post': post,
@@ -133,6 +139,8 @@ def register(request):
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data['password'])    
             new_user.save()
+            user = authenticate(username=new_user.username, password=form.cleaned_data['password'])
+            login(request, user)
             return redirect('restaurante:post_restaurant')
     else:
         form = RegistrationForm()
